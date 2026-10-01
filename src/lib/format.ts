@@ -36,7 +36,8 @@ export function daysUntil(d: string): number {
 
 export function sar(value: number, opts: { compact?: boolean } = {}): string {
   if (opts.compact) {
-    if (Math.abs(value) >= 1_000_000) return `SAR ${(value / 1_000_000).toFixed(value >= 10_000_000 ? 1 : 2).replace(/\.0+$/, '')}M`
+    const trim = (x: string) => x.replace(/\.?0+$/, '')
+    if (Math.abs(value) >= 1_000_000) return `SAR ${trim((value / 1_000_000).toFixed(Math.abs(value) >= 10_000_000 ? 1 : 2))}M`
     if (Math.abs(value) >= 1_000) return `SAR ${Math.round(value / 1_000)}K`
   }
   return `SAR ${value.toLocaleString('en-US')}`
