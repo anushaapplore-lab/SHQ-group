@@ -141,7 +141,7 @@ export function IconButton({ icon: Icon, label, className, badge, ...rest }: But
 
 export function Card({ children, className, title, actions, icon: Icon, subtitle, bodyClassName, id }: { children: ReactNode; className?: string; title?: ReactNode; actions?: ReactNode; icon?: LucideIcon; subtitle?: ReactNode; bodyClassName?: string; id?: string }) {
   return (
-    <section id={id} className={cx('rounded-[12px] border border-line bg-surface', className)}>
+    <section id={id} className={cx('min-w-0 rounded-[12px] border border-line bg-surface', className)}>
       {(title || actions) && (
         <header className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-3.5">
           <div className="flex min-w-0 items-center gap-2.5">
