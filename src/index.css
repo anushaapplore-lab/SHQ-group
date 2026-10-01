@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+/*
+  SHQ Operations Command design tokens.
+  Derived from design-language-shq.md. Brand values marked TBD in the spec are
+  provisional: a navy shell and a blue action colour (per the product brief)
+  until verified SHQ brand hexes are sampled.
+*/
+:root {
+  /* Brand layer (provisional) */
+  --brand-shell: #0f1e3f;
+  --brand-shell-raised: #1f2e4e;
+  --text-primary: #0b1530;
+  --action: #1d4ed8;
+  --action-hover: #1e40af;
+  --action-text: #ffffff;
+  --badge-bg: #dbe6ff;
+  --badge-text: #13306e;
+  --nav-active: #ebecf0;
+
+  /* Neutrals */
+  --surface: #ffffff;
+  --surface-muted: #f6f6f6;
+  --canvas: #f8f9fb;
+  --border: #e8eaee;
+  --border-strong: #d6d9df;
+  --text-secondary: #5a606b;
+  --text-tertiary: #7b7d81;
+
+  /* Status */
+  --ok: #15803d;
+  --ok-bg: #dcfce7;
+  --warn: #b45309;
+  --warn-bg: #fef3c7;
+  --crit: #b91c1c;
+  --crit-bg: #fee2e2;
+  --info: #1d4ed8;
+  --info-bg: #dbeafe;
+
+  /* Workflow stages */
+  --stage-1: #abf5d1;
+  --stage-2: #febead;
+  --stage-3: #fdf1b1;
+  --stage-4: #b3f6ff;
+  --stage-5: #c0b6f3;
+  --stage-6: #d5e5a2;
+
+  /* File types */
+  --file-pdf: #831d19;
+  --file-sheet: #0f9861;
+  --file-doc: #52277a;
+  --file-slides: #c3900d;
+
+  --font-sans: "Inter", "Satoshi", system-ui, sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Noto Kufi Arabic", "Inter", sans-serif;
+}
+
+@theme inline {
+  --color-shell: var(--brand-shell);
+  --color-shell-raised: var(--brand-shell-raised);
+  --color-ink: var(--text-primary);
+  --color-ink-2: var(--text-secondary);
+  --color-ink-3: var(--text-tertiary);
+  --color-action: var(--action);
+  --color-action-hover: var(--action-hover);
+  --color-surface: var(--surface);
+  --color-muted: var(--surface-muted);
+  --color-canvas: var(--canvas);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-navactive: var(--nav-active);
+  --color-ok: var(--ok);
+  --color-ok-bg: var(--ok-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-crit: var(--crit);
+  --color-crit-bg: var(--crit-bg);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-stage-1: var(--stage-1);
+  --color-stage-2: var(--stage-2);
+  --color-stage-3: var(--stage-3);
+  --color-stage-4: var(--stage-4);
+  --color-stage-5: var(--stage-5);
+  --color-stage-6: var(--stage-6);
+  --color-pdf: var(--file-pdf);
+  --color-sheet: var(--file-sheet);
+  --color-doc: var(--file-doc);
+  --color-slides: var(--file-slides);
+  --font-sans: var(--font-sans);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[dir="rtl"] body {
+  font-family: var(--font-arabic);
+}
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Workflow chevron stepper (design language 5.2) */
+.chevron {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%);
+}
+.chevron-first {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%);
+}
+html[dir="rtl"] .chevron {
+  clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 50%, 100% 100%, 14px 100%, 0 50%);
+}
+html[dir="rtl"] .chevron-first {
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 50%);
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #d6d9df;
+  border-radius: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes slide-in-end {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pop-in {
+  from {
+    transform: translateY(6px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.anim-slide {
+  animation: slide-in-end 180ms ease-out;
+}
+html[dir="rtl"] .anim-slide {
+  animation-name: fade-in;
+}
+.anim-fade {
+  animation: fade-in 150ms ease-out;
+}
+.anim-pop {
+  animation: pop-in 160ms ease-out;
+}
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+.pulse-soft {
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, #eef0f3 0%, #f7f8fa 50%, #eef0f3 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.2s linear infinite;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-slide,
+  .anim-fade,
+  .anim-pop,
+  .pulse-soft,
+  .skeleton {
+    animation: none;
+  }
+}
