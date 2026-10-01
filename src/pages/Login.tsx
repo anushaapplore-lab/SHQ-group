@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ArrowRight, ChevronRight, Gauge, Layers, Lock, Mail, Smartphone, Users } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { canAccess } from '../nav'
 import type { Role } from '../data/types'
 import { cx } from '../lib/format'
 import { ROLES, roleProfile } from '../store/roles'
@@ -16,13 +17,15 @@ const LAYERS = [
 export function LoginPage() {
   const { state, actions } = useStore()
   const navigate = useNavigate()
+  const location = useLocation()
+  const from = (location.state as { from?: string } | null)?.from
   const [showRoles, setShowRoles] = useState(false)
   const [email, setEmail] = useState('saleh@shq-demo.example')
   const [password, setPassword] = useState('demo-password')
 
   const enter = (role: Role) => {
     actions.signIn(role)
-    navigate(roleProfile(role).home)
+    navigate(from && from !== '/login' && canAccess(role, from) ? from : roleProfile(role).home)
   }
 
   return (

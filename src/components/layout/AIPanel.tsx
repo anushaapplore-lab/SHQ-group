@@ -62,7 +62,9 @@ export function AiChat({ compact, onNavigate }: { compact?: boolean; onNavigate?
   const seq = useRef(0)
   const endRef = useRef<HTMLDivElement>(null)
   const stateRef = useRef(state)
-  stateRef.current = state
+  useEffect(() => {
+    stateRef.current = state
+  }, [state])
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { CloudUpload, FolderTree, Search, X } from 'lucide-react'
@@ -27,7 +27,7 @@ function Highlight({ text, q }: { text: string; q: string }): ReactNode {
 
 function DossierImpact() {
   const { state } = useStore()
-  const initial = useRef<Record<string, number>>(Object.fromEntries(MDR_PROJECTS.map((p) => [p, mdrSummary(state.mdr[p]).pct])))
+  const [initial] = useState<Record<string, number>>(() => Object.fromEntries(MDR_PROJECTS.map((p) => [p, mdrSummary(state.mdr[p]).pct])))
   return (
     <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[10px] border border-line bg-muted px-4 py-2.5 text-[13px]">
       <span className="flex items-center gap-1.5 text-ink-2">
@@ -35,7 +35,7 @@ function DossierImpact() {
       </span>
       {MDR_PROJECTS.filter((p) => state.mdr[p]).map((p) => {
         const now = mdrSummary(state.mdr[p]).pct
-        const delta = Math.round((now - initial.current[p]) * 10) / 10
+        const delta = Math.round((now - initial[p]) * 10) / 10
         return (
           <span key={p} className="tabular text-ink">
             <span className="font-medium">{p}</span> {now.toFixed(1)}%
